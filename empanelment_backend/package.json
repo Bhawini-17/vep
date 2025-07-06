@@ -1,0 +1,37 @@
+{
+  "name": "empanelment-backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:setup": "mysql -u root -p < database/schema.sql"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "mysql2": "^3.6.0",
+    "formidable": "^3.5.0",
+    "uuid": "^9.0.0",
+    "zod": "^3.22.0",
+    "cors": "^2.8.5",
+    "multer": "^1.4.5-lts.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "dotenv": "^16.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/formidable": "^3.4.0",
+    "@types/uuid": "^9.0.0",
+    "@types/cors": "^2.8.0",
+    "@types/multer": "^1.4.7",
+    "@types/bcryptjs": "^2.4.4",
+    "@types/jsonwebtoken": "^9.0.0",
+    "typescript": "^5.0.0"
+  }
+}
