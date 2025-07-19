@@ -169,67 +169,76 @@ const LoginForm = ({ onLogin }: Props) => {
 
           {/* ─────────────── LOGIN TAB ─────────────── */}
           <TabsContent value="login">
-            <form onSubmit={submitLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={loginData.email}
-                  onChange={(e) =>
-                    setLoginData({ ...loginData, email: e.target.value })
-                  }
-                  required
-                />
-              </div>
+  <form onSubmit={submitLogin} className="space-y-4">
+    <div className="space-y-2">
+      <Label htmlFor="email">Email</Label>
+      <Input
+        id="email"
+        type="email"
+        value={loginData.email}
+        onChange={(e) =>
+          setLoginData({ ...loginData, email: e.target.value })
+        }
+        required
+      />
+    </div>
 
-              {!show2FA && (
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    value={loginData.password}
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, password: e.target.value })
-                    }
-                    required
-                  />
-                </div>
-              )}
+    {!show2FA && (
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          type="password"
+          value={loginData.password}
+          onChange={(e) =>
+            setLoginData({ ...loginData, password: e.target.value })
+          }
+          required
+        />
+      </div>
+    )}
 
-              {show2FA && (
-                <div className="space-y-2">
-                  <Label htmlFor="otp">Enter OTP</Label>
-                  <Input
-                    id="otp"
-                    placeholder="6-digit OTP"
-                    value={loginData.otp}
-                    onChange={(e) =>
-                      setLoginData({ ...loginData, otp: e.target.value })
-                    }
-                    required
-                  />
-                  <Alert>
-                    <AlertDescription>Demo OTP: 123456</AlertDescription>
-                  </Alert>
-                </div>
-              )}
+    {show2FA && (
+      <div className="space-y-2">
+        <Label htmlFor="otp">Enter OTP</Label>
+        <Input
+          id="otp"
+          placeholder="6-digit OTP"
+          value={loginData.otp}
+          onChange={(e) =>
+            setLoginData({ ...loginData, otp: e.target.value })
+          }
+          required
+        />
+        <Alert>
+          <AlertDescription>Demo OTP: 123456</AlertDescription>
+        </Alert>
+      </div>
+    )}
 
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={
-                  show2FA
-                    ? verifyOtpMutation.isPending
-                    : loginMutation.isPending
-                }
-              >
-                <LogIn className="w-4 h-4 mr-2" />
-                {show2FA ? "Verify OTP" : "Login"}
-              </Button>
-            </form>
-          </TabsContent>
+    <Button
+      type="submit"
+      className="w-full"
+      disabled={
+        show2FA
+          ? verifyOtpMutation.isPending
+          : loginMutation.isPending
+      }
+    >
+      <LogIn className="w-4 h-4 mr-2" />
+      {show2FA ? "Verify OTP" : "Login"}
+    </Button>
+  </form>
+
+  {/* Demo credentials block */}
+  <div className="mt-6 p-4 bg-gray-50 rounded-lg text-sm">
+    <h4 className="font-semibold mb-2">Demo Credentials:</h4>
+    <p><strong>Vendor:</strong> vendor@demo.com / Ven@12</p>
+    <p><strong>HOD Civil:</strong> hod.civil@dmrc.com / Civ@23</p>
+    <p><strong>HOD Electrical:</strong> hod.electrical@dmrc.com / Elec@234</p>
+    <p><strong>Admin:</strong> admin@dmrc.com / Adm@56</p>
+  </div>
+</TabsContent>
 
           {/* ─────────────── REGISTER TAB ─────────────── */}
           <TabsContent value="register">

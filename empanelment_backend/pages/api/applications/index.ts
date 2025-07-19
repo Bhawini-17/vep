@@ -8,7 +8,7 @@ import {
   createSuccessResponse,
   createErrorResponse,
   handleApiError,
-  parseQuery,
+  parseQuery,/
 } from '../../../lib/utils';
 
 const applicationRepo = new ApplicationRepository();
