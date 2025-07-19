@@ -233,10 +233,10 @@ const LoginForm = ({ onLogin }: Props) => {
   {/* Demo credentials block */}
   <div className="mt-6 p-4 bg-gray-50 rounded-lg text-sm">
     <h4 className="font-semibold mb-2">Demo Credentials:</h4>
-    <p><strong>Vendor:</strong> vendor@demo.com / Ven@12</p>
-    <p><strong>HOD Civil:</strong> hod.civil@dmrc.com / Civ@23</p>
-    <p><strong>HOD Electrical:</strong> hod.electrical@dmrc.com / Elec@234</p>
-    <p><strong>Admin:</strong> admin@dmrc.com / Adm@56</p>
+    <p><strong>Vendor:</strong> vendor@demo.com / 123456</p>
+    <p><strong>HOD Civil:</strong> hod.civil@dmrc.com / 123456</p>
+    <p><strong>HOD Electrical:</strong> hod.electrical@dmrc.com / 123456</p>
+    <p><strong>Admin:</strong> admin@dmrc.com / 123456</p>
   </div>
 </TabsContent>
 

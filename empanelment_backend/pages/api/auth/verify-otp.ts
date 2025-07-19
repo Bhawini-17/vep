@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createSuccessResponse, createErrorResponse } from "../../../lib/utils";
+import { cors } from '../../../lib/middleware'; 
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+await cors(req, res);
   if (req.method !== "POST") {
     return res.status(405).json(createErrorResponse("Method Not Allowed"));
   }

@@ -1,35 +1,37 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createSuccessResponse, createErrorResponse } from "../../../lib/utils";
+import { cors } from '../../../lib/middleware'; 
 
 const demoUsers = [
   {
     email: "vendor@demo.com",
-    password: "Ven@12",
+    password: "123456",
     role: "vendor",
     name: "Vendor User"
   },
   {
     email: "hod.civil@dmrc.com",
-    password: "Civ@23",
+    password: "123456",
     role: "hod_civil",
     name: "Civil HOD"
   },
   {
     email: "hod.electrical@dmrc.com",
-    password: "Elec@234",
+    password: "123456",
     role: "hod_electrical",
     name: "Electrical HOD"
   },
   {
     email: "admin@dmrc.com",
-    password: "Adm@56",
+    password: "123456",
     role: "admin",
     name: "Admin"
   }
 ];
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await cors(req, res);
+    if (req.method !== "POST") {
     return res.status(405).json(createErrorResponse("Method Not Allowed"));
   }
 
