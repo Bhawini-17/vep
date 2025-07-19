@@ -127,6 +127,30 @@ const VendorDashboard = ({ user, onLogout }) => {
                     </div>
                     <FileText className="w-8 h-8 text-blue-600" />
                   </div>
+
+                  {/* Department-wise Application PDFs */}
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <Button
+      onClick={() => window.open("/pdfs/Civil.pdf", "_blank")}
+      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg"
+    >
+      Civil
+    </Button>
+
+    <Button
+      onClick={() => window.open("/pdfs/Electrical.pdf", "_blank")}
+      className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg"
+    >
+      Electrical
+    </Button>
+
+    <Button
+      onClick={() => window.open("/pdfs/Architecture.pdf", "_blank")}
+      className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg"
+    >
+      Architecture
+    </Button>
+  </div>
                 </CardContent>
               </Card>
               
