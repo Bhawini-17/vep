@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,9 +11,14 @@ import { Upload, Save, Send, FileText } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import api from "../api";
 
-const ApplicationForm = () => {
+// Define props interface for ApplicationForm
+interface ApplicationFormProps {
+  defaultDepartment?: string; // Optional prop to pre-select department
+}
+
+const ApplicationForm = ({ defaultDepartment = '' }: ApplicationFormProps) => {
   const [formData, setFormData] = useState({
-    department: '',
+    department: defaultDepartment,
     itemCategory: '',
     itemName: '',
     itemDescription: '',
@@ -29,6 +33,69 @@ const ApplicationForm = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [agreementChecked, setAgreementChecked] = useState(false);
   const [isDraft, setIsDraft] = useState(false);
+
+  // Update formData when defaultDepartment prop changes
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      department: defaultDepartment
+    }));
+  }, [defaultDepartment]);
+
+  // Define item categories based on department
+  const departmentItemCategories = {
+    civil: [
+      "Cement",
+      "Reinforcement Bars",
+      "Epoxy",
+      "Expansion Joints for Viaduct",
+      "Expansion Joints for Buildings",
+      "Admixtures",
+      "Low strain Pile Integrity Testing",
+      "Cross hole testing of piles",
+      "Anchor Fastener (Structural)",
+      "Structural Steel (Fabrication)",
+      "Pre-stressing Strand (LRPC)",
+      "Pot/PTFE Bearings",
+      "Elastomeric Bearings",
+      "Spherical Bearings",
+      "Horizontal Tie Bars / Shear Bars"
+    ],
+    electrical: [
+      "33 kV Power Cables",
+      "25 kV Power Cables",
+      "3.3 kV Return Cable",
+      "33 kV STJ/Cable Terminations",
+      "25 kV STJ/Cable Terminations",
+      "3.3kV STJ/Cable Terminations",
+      "LA (Composite Insulation) for 33 kV panel",
+      "LA (composite Insulation) for 25 kV System",
+      "33 kV, Dry Cast resin Inductive PT",
+      "33 kV, Dry Cast resin Inductive CT",
+      "33kV/415V, Dry cast resin Auxiliary Transformers",
+      "33 kV HT Panel with Vacuum Circuit Breaker",
+      "Float Cum Boost Battery Charger",
+      "Ni Cd, Battery Bank",
+      "25kV PTFE type Short Neutral Section"
+    ],
+    architecture: [
+      "Vitrified Tiles",
+      "Ceramic/Porcelain Tiles",
+      "Raised Floor",
+      "PU/Epoxy Coated Flooring",
+      "Concrete Pavers",
+      "Ceramic or Glass Mosaic Tiles",
+      "Pre-mix Cement Plaster",
+      "Emulsion Paints",
+      "Synthetic Enamels",
+      "Polyurethane Paints/Epoxy Paints",
+      "Bonding Coat/Primer Texture Paint",
+      "Wall Care Putty",
+      "Glass (Float/Toughened)",
+      "Fire Rated Glass",
+      "Structural Glazing Fabricators"
+    ],
+  };
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -123,7 +190,10 @@ const ApplicationForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="department">Department *</Label>
-              <Select onValueChange={(value) => handleInputChange('department', value)}>
+              <Select 
+                value={formData.department} 
+                onValueChange={(value) => handleInputChange('department', value)}
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Department" />
                 </SelectTrigger>
@@ -137,15 +207,20 @@ const ApplicationForm = () => {
             
             <div className="space-y-2">
               <Label htmlFor="itemCategory">Item Category *</Label>
-              <Select onValueChange={(value) => handleInputChange('itemCategory', value)}>
+              <Select 
+                value={formData.itemCategory}
+                onValueChange={(value) => handleInputChange('itemCategory', value)}
+                disabled={!formData.department} // Disable if no department is selected
+              >
                 <SelectTrigger>
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="materials">Construction Materials</SelectItem>
-                  <SelectItem value="equipment">Equipment & Machinery</SelectItem>
-                  <SelectItem value="services">Professional Services</SelectItem>
-                  <SelectItem value="components">Components & Parts</SelectItem>
+                  {formData.department && departmentItemCategories[formData.department as keyof typeof departmentItemCategories]?.map((category) => (
+                    <SelectItem key={category} value={category.toLowerCase().replace(/\s/g, '-')}>
+                      {category}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

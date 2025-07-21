@@ -29,6 +29,10 @@ interface Props {
   onLogin: (user: any, role: string) => void;
 }
 
+function generateOTP(): string {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
 const LoginForm = ({ onLogin }: Props) => {
   /* ─────────────────────────── state ─────────────────────────── */
   const [loginData, setLoginData] = useState({
@@ -58,13 +62,15 @@ const LoginForm = ({ onLogin }: Props) => {
         password: loginData.password,
       }),
     onSuccess: ({ data }) => {
-      localStorage.setItem("tempToken", data.data.token); // pre‑OTP token
-      setShow2FA(true);
-      toast({
-        title: "OTP Sent",
-        description: "Demo OTP: 123456",
-      });
-    },
+  const otp = generateOTP();
+  localStorage.setItem("tempToken", data.data.token); // pre-OTP token
+  localStorage.setItem("otp", otp); // save OTP temporarily
+  setShow2FA(true);
+  toast({
+    title: "OTP Sent",
+    description: `Your OTP is: ${otp}`,
+  });
+},
     onError: (err: any) =>
       toast({
         title: "Invalid Credentials",
@@ -76,27 +82,39 @@ const LoginForm = ({ onLogin }: Props) => {
 
   /* 2) Verify OTP → /auth/verify-otp */
   const verifyOtpMutation = useMutation({
-    mutationFn: () =>
-      api.post("/auth/verify-otp", {
-        email: loginData.email,
-        otp: loginData.otp,
-      }),
-    onSuccess: ({ data }) => {
-      const { user, token } = data.data;
-      localStorage.setItem("token", token); // real JWT for future calls
-      toast({
-        title: "Login Successful",
-        description: `Welcome ${user.name}!`,
+  mutationFn: () => {
+    const storedOtp = localStorage.getItem("otp");
+    if (loginData.otp === storedOtp) {
+      return Promise.resolve({
+        data: {
+          user: {
+            name: "Demo User",
+            email: loginData.email,
+            role: "vendor",
+          },
+          token: "mocked-jwt-token"
+        }
       });
-      onLogin(user, user.role);
-    },
-    onError: (err: any) =>
-      toast({
-        title: "Invalid OTP",
-        description: err.response?.data?.message ?? "Please enter correct OTP",
-        variant: "destructive",
-      }),
-  });
+    } else {
+      return Promise.reject(new Error("Invalid OTP"));
+    }
+  },
+  onSuccess: ({ data }) => {
+    const { user, token } = data;
+    localStorage.setItem("token", token); // real JWT
+    toast({
+      title: "Login Successful",
+      description: `Welcome ${user.name}!`,
+    });
+    onLogin(user, user.role);
+  },
+  onError: (err: any) =>
+    toast({
+      title: "Invalid OTP",
+      description: err.message ?? "Please enter correct OTP",
+      variant: "destructive",
+    }),
+});
 
   /* 3) Register → /auth/register */
   const registerMutation = useMutation({
@@ -210,9 +228,6 @@ const LoginForm = ({ onLogin }: Props) => {
           }
           required
         />
-        <Alert>
-          <AlertDescription>Demo OTP: 123456</AlertDescription>
-        </Alert>
       </div>
     )}
 

@@ -2,7 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/applications": "pages/api/applications.js",
-  "/api/auth/login": "pages/api/auth/login.js",
-  "/api/auth/verify-otp": "pages/api/auth/verify-otp.js"
+  "/api/auth/register": "pages/api/auth/register.js",
+  "/api/auth/login": "pages/api/auth/login.js"
 }

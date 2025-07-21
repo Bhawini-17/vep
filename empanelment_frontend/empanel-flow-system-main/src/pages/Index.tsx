@@ -138,7 +138,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-gray-800 text-white py-8 mt-16">
         <div className="container mx-auto px-4 text-center">
-          <p className="mb-2">© 2024 Delhi Metro Rail Corporation Ltd. All rights reserved.</p>
+          <p className="mb-2">© 2025 Delhi Metro Rail Corporation Ltd. All rights reserved.</p>
           <p className="text-gray-400">Vendor Empanelment Portal - Secure & Efficient</p>
         </div>
       </footer>

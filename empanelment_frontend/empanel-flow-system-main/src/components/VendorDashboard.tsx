@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -63,6 +62,9 @@ const VendorDashboard = ({ user, onLogout }) => {
     }
   ]);
 
+  // State to hold the default department for the new application form
+  const [newApplicationDepartment, setNewApplicationDepartment] = useState('');
+
   const getStatusBadge = (status) => {
     const colors = {
       'Under Review': 'bg-blue-100 text-blue-800',
@@ -73,7 +75,8 @@ const VendorDashboard = ({ user, onLogout }) => {
     return colors[status] || 'bg-gray-100 text-gray-800';
   };
 
-  const handleNewApplication = () => {
+  const handleNewApplicationClick = (department) => {
+    setNewApplicationDepartment(department);
     setActiveTab('new-application');
   };
 
@@ -127,30 +130,6 @@ const VendorDashboard = ({ user, onLogout }) => {
                     </div>
                     <FileText className="w-8 h-8 text-blue-600" />
                   </div>
-
-                  {/* Department-wise Application PDFs */}
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <Button
-      onClick={() => window.open("/pdfs/Civil.pdf", "_blank")}
-      className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg"
-    >
-      Civil
-    </Button>
-
-    <Button
-      onClick={() => window.open("/pdfs/Electrical.pdf", "_blank")}
-      className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg"
-    >
-      Electrical
-    </Button>
-
-    <Button
-      onClick={() => window.open("/pdfs/Architecture.pdf", "_blank")}
-      className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg"
-    >
-      Architecture
-    </Button>
-  </div>
                 </CardContent>
               </Card>
               
@@ -190,6 +169,35 @@ const VendorDashboard = ({ user, onLogout }) => {
                 </CardContent>
               </Card>
             </div>
+
+            {/* New Application Buttons */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Start a New Application</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button
+                    onClick={() => handleNewApplicationClick('civil')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg"
+                  >
+                    New Civil Application
+                  </Button>
+                  <Button
+                    onClick={() => handleNewApplicationClick('electrical')}
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg"
+                  >
+                    New Electrical Application
+                  </Button>
+                  <Button
+                    onClick={() => handleNewApplicationClick('architecture')}
+                    className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg"
+                  >
+                    New Architecture Application
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Recent Applications */}
             <Card>
@@ -249,7 +257,7 @@ const VendorDashboard = ({ user, onLogout }) => {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>My Applications</CardTitle>
-                <Button onClick={handleNewApplication}>
+                <Button onClick={() => handleNewApplicationClick('')}> {/* Pass empty string to reset default department */}
                   <Plus className="w-4 h-4 mr-2" />
                   New Application
                 </Button>
@@ -306,7 +314,8 @@ const VendorDashboard = ({ user, onLogout }) => {
           </TabsContent>
 
           <TabsContent value="new-application">
-            <ApplicationForm />
+            {/* Pass the newApplicationDepartment state to ApplicationForm */}
+            <ApplicationForm defaultDepartment={newApplicationDepartment} />
           </TabsContent>
 
           <TabsContent value="documents">
@@ -338,7 +347,7 @@ const VendorDashboard = ({ user, onLogout }) => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-1">Registration Date</label>
-                      <p>January 1, 2024</p>
+                      <p>January 1, 2025</p> {/* Updated year to 2025 */}
                     </div>
                   </div>
                   
