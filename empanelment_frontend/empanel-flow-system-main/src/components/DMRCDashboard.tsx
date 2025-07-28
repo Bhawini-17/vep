@@ -32,7 +32,7 @@ const DMRCDashboard = ({ user, role, onLogout }) => {
       department: 'Civil',
       status: 'Pending Review',
       stage: 'HOD Review',
-      submittedDate: '2024-01-15',
+      submittedDate: '2025-01-15',
       currentReviewer: 'HOD Civil',
       priority: 'Normal',
       daysInStage: 5
@@ -44,7 +44,7 @@ const DMRCDashboard = ({ user, role, onLogout }) => {
       department: 'Electrical',
       status: 'Committee Review',
       stage: 'Dy. HOD Committee',
-      submittedDate: '2024-01-10',
+      submittedDate: '2025-01-10',
       currentReviewer: 'Committee',
       priority: 'High',
       daysInStage: 3
@@ -56,7 +56,7 @@ const DMRCDashboard = ({ user, role, onLogout }) => {
       department: 'Architecture',
       status: 'Director Approval',
       stage: 'Final Approval',
-      submittedDate: '2024-01-08',
+      submittedDate: '2025-01-08',
       currentReviewer: 'Director',
       priority: 'High',
       daysInStage: 2

@@ -31,7 +31,7 @@ const VendorDashboard = ({ user, onLogout }) => {
       department: 'Civil',
       status: 'Under Review',
       stage: 'HOD Review',
-      submittedDate: '2024-01-15',
+      submittedDate: '2025-01-15',
       progress: 60
     },
     {
@@ -40,7 +40,7 @@ const VendorDashboard = ({ user, onLogout }) => {
       department: 'Electrical',
       status: 'Clarification Required',
       stage: 'Dy. HOD Review',
-      submittedDate: '2024-01-10',
+      submittedDate: '2025-01-10',
       progress: 40
     }
   ]);
@@ -50,14 +50,14 @@ const VendorDashboard = ({ user, onLogout }) => {
       id: 1,
       type: 'clarification',
       message: 'Clarification required for Application APP002',
-      date: '2024-01-20',
+      date: '2025-01-20',
       read: false
     },
     {
       id: 2,
       type: 'status',
       message: 'Application APP001 moved to HOD Review stage',
-      date: '2024-01-18',
+      date: '2025-01-18',
       read: true
     }
   ]);

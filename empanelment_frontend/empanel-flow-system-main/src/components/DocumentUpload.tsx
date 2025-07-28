@@ -31,7 +31,7 @@ const DocumentUpload = () => {
       name: 'GST Certificate.pdf',
       type: 'Tax Document',
       size: '1.8 MB',
-      uploadDate: '2024-01-15',
+      uploadDate: '2025-01-15',
       status: 'Pending'
     },
     {
@@ -39,7 +39,7 @@ const DocumentUpload = () => {
       name: 'PAN Card.pdf',
       type: 'Identity',
       size: '0.9 MB',
-      uploadDate: '2024-01-15',
+      uploadDate: '2025-01-15',
       status: 'Verified'
     }
   ]);
